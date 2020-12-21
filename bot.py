@@ -15,14 +15,14 @@ class PluginBot(Bot):
 
         self.plugins = {}
         self.cog_instances = {}
-        plugin_source = PluginBase(package="plugins").make_plugin_source(searchpath=["./plugins"])
-        for i in plugin_source.list_plugins():
-            self.load_plugin(i)
-
         if Path("settings.json").exists():
             self._settings: dict = json.load(Path("settings.json").open())
         else:
             self._settings: dict = {}
+
+        plugin_source = PluginBase(package="plugins").make_plugin_source(searchpath=["./plugins"])
+        for i in plugin_source.list_plugins():
+            self.load_plugin(i)
 
     def load_plugin(self, plugin_name: str):
         mod = importlib.import_module("." + plugin_name, package="plugins")
