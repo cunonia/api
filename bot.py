@@ -1,5 +1,6 @@
 import importlib
 import json
+import sys
 from pathlib import Path
 
 from discord.ext.commands import Bot
@@ -21,7 +22,7 @@ class PluginBot(Bot):
             self._settings: dict = {}
 
         plugin_source = PluginBase(package="plugins").make_plugin_source(searchpath=["./plugins"])
-        for i in (custom_load_order or plugin_source.list_plugins()):
+        for i in custom_load_order or plugin_source.list_plugins():
             self.load_plugin(i)
 
     def load_plugin(self, plugin_name: str):
