@@ -15,8 +15,8 @@ class PluginBot(Bot):
 
         self.plugins = {}
         self.cog_instances = {}
-        if Path("settings.json").exists():
-            self._settings: dict = json.load(Path("settings.json").open())
+        if Path(sys.argv[1]).exists():
+            self._settings: dict = json.load(Path(sys.argv[1]).open())
         else:
             self._settings: dict = {}
 
@@ -59,7 +59,7 @@ class PluginBot(Bot):
             self.reload_plugin(mod_name)
 
     async def close(self):
-        json.dump(self._settings, Path("settings.json").open("w"), indent=4)
+        json.dump(self._settings, Path(sys.argv[1]).open("w"), indent=4)
         await super().close()
 
     def settings(self, cog_name=None):
