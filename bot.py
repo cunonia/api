@@ -60,7 +60,7 @@ class PluginBot(Bot):
             self.reload_plugin(mod_name)
 
     async def close(self):
-        json.dump(self._settings, Path(sys.argv[1]).open("w"), indent=4)
+        json.dump(self._settings, Path(sys.argv[1]).open("w", newline='\n'), indent=4)
         await super().close()
 
     def settings(self, cog_name=None):
