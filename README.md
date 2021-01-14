@@ -1,2 +1,2 @@
 # api
-Cunonia bot API
+bot API
