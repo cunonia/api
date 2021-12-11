@@ -12,7 +12,7 @@ from api.cog import BotCog
 
 class PluginBot(Bot):
     def __init__(self, command_prefix, help_command=_default, description=None, custom_load_order=None, **options):
-        super().__init__(command_prefix, help_command, description, **options)
+        super().__init__(command_prefix, help_command, **options)
 
         self.plugins = {}
         self.cog_instances = {}
