@@ -3,11 +3,9 @@ import json
 import sys
 from pathlib import Path
 
-from discord.ext.commands import Bot
+from discord.ext.commands import Bot, Cog
 from discord.ext.commands.bot import _default
 from pluginbase import PluginBase
-
-from api.cog import BotCog
 
 
 class PluginBot(Bot):
@@ -24,6 +22,8 @@ class PluginBot(Bot):
         plugin_source = PluginBase(package="plugins").make_plugin_source(searchpath=["./plugins"])
         for i in custom_load_order or plugin_source.list_plugins():
             self.load_plugin(i)
+        
+        self.return_code = 0
 
     def load_plugin(self, plugin_name: str):
         mod = importlib.import_module("." + plugin_name, package="plugins")
@@ -66,7 +66,7 @@ class PluginBot(Bot):
     def settings(self, cog_name=None):
         if not cog_name:
             return self._settings
-        if isinstance(cog_name, BotCog):
+        if isinstance(cog_name, Cog):
             cog_name = type(cog_name).__name__
         if not self._settings.get(cog_name):
             self._settings[cog_name] = {}
