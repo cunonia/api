@@ -58,6 +58,8 @@ class PluginBot(Bot):
                 break
         if mod_name:
             self.reload_plugin(mod_name)
+        else:
+            raise ModuleNotFoundError
 
     async def close(self):
         json.dump(self._settings, Path(sys.argv[1]).open("w", newline='\n'), indent=4)
